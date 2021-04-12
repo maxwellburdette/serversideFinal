@@ -1,8 +1,8 @@
 <!-- 
     File: dbfCreate.php (Web page to create new database and tables. Populate table data and display it)
-    Server Side Development / Project: Crud
+    Server Side Development / Project: Term Project
     Maxwell Burdette / burdettm@csp.edu
-    03/27/2021
+    04/11/2021
  -->
 <!DOCTYPE html>
 <html>
@@ -55,23 +55,27 @@
             $result = $conn->query($sql);
             displayTable($productHead, $tableTitle, $result);
 
+            //Display company tables
+            $manufacturerArray = array("Company");
+            $manufacturerTitle = "Companies";
+            $sql = "SELECT companyName
+            FROM company";
+            $result = $conn->query($sql);
+            displayTable($manufacturerArray, $manufacturerTitle, $result);
+            
             //Display open jobs table
-            $departmentHead = array("Job Title", "Job Description");
+            $departmentHead = array("Company", "Job Title", "Job Description");
             $departmentTitle = "Job Openings";
-            $sql = "SELECT jobTitle, jobDescription FROM openjobs";
+            $sql = "SELECT c.companyName, j.jobTitle, j.jobDescription 
+            FROM company c
+            JOIN openjobs j
+            ON c.companyID = j.companyID
+            ";
             $result = $conn->query($sql);
             //Display tables of data
             displayTable($departmentHead, $departmentTitle, $result);
 
-            //Display company tables
-            $manufacturerArray = array("Company", "Job Openings");
-            $manufacturerTitle = "Companies";
-            $sql = "SELECT c.companyName, j.jobTitle
-            FROM openjobs j
-            JOIN company c
-            ON c.jobID = j.jobID";
-            $result = $conn->query($sql);
-            displayTable($manufacturerArray, $manufacturerTitle, $result);
+        
 
 
 
@@ -89,7 +93,7 @@
                  * Create tables 
                  */
 
-                //Create Table: Products
+                //Create Table: Users
                 $sql = "CREATE TABLE IF NOT EXISTS users (
                     userID INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
                     firstName VARCHAR(30) NOT NULL,
@@ -99,19 +103,19 @@
                     )";
                 runQuery($sql, "Creating users... ", false);
 
-                //Create Table: department
+                //Create Table: jobs
                 $sql = "CREATE TABLE IF NOT EXISTS openjobs (
                     jobID INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
                     jobTitle VARCHAR(50) NOT NULL,
-                    jobDescription VARCHAR(255)
+                    jobDescription VARCHAR(255),
+                    companyID INT
                     )";
                 runQuery($sql, "Creating jobs...", false);
 
-                //Create Table: manufacturer
+                //Create Table: company
                 $sql = "CREATE TABLE IF NOT EXISTS company (
                     companyID INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                    companyName VARCHAR(20) NOT NULL,
-                    jobID INT 
+                    companyName VARCHAR(20) NOT NULL
                 )";
                 runQuery($sql, "Creating companies...", false);
             }
@@ -142,31 +146,33 @@
 
                 //Populate company tables
                 $companyArray = array(
-                    array("BestBuy", 1),
-                    array("Target", 2),
-                    array("Walmart", 1),
+                    array("BestBuy"),
+                    array("Target"),
+                    array("Walmart"),
                 );
                 foreach($companyArray as $company)
                 {
                     //echo "Department: " . $department[0] . ", Manager: " . $department[1] . "<br />";
-                    $sql = "INSERT INTO company (companyName, jobID) "
-                        . "VALUES ('" . $company[0] . "', '"
-                        . $company[1] . "')";
+                    $sql = "INSERT INTO company (companyName) "
+                        . "VALUES ('" . $company[0] . "')";
+                        
                     runQuery($sql, "Record inserted for: " . $company[1], false);
                 }
 
                 //Populate openjobs table
                 $jobsArray = array(
-                    array("Cashier", "Ring up customers and process payment"),
-                    array("Manager", "Manage store")
+                    array("Cashier", "Ring up customers and process payment", 1),
+                    array("Cashier", "Ring up customers and process payment", 2),
+                    array("Manager", "Manage store", 3)
                 );
                 foreach($jobsArray as $jobs)
                 {
                     //echo "Manufacturer: " . $manufacturer[0] . "<br />";
-                    $sql = "INSERT INTO openjobs (jobTitle, jobDescription) "
-                        . " VALUES ('" . $jobs[0] . "', '" 
-                        . $jobs[1] . "')";
-                    runQuery($sql, "Record inserted for: " . $jobs[1], false);
+                    $sql = "INSERT INTO openjobs (jobTitle, jobDescription, companyID) "
+                        . " VALUES ('" . $jobs[0] . "', '"
+                        . $jobs[1] . "', '"
+                        . $jobs[2] . "')";
+                    runQuery($sql, "Record inserted for: " . $jobs[0], false);
                 }
             }
 
