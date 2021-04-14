@@ -43,29 +43,6 @@
 					echo '<label for="floatingInput">'.$value.'</label>';
 				echo '</div>';
 			}
-
-			function displayTable($tableHead, $title, $result)
-            {
-               
-		        echo '<table style="color: #cfcfcf">';
-		        echo '<tr>';
-                foreach($tableHead as $value)
-                {
-                    echo "<th>".$value."</th>";
-                }
-                while($row = $result->fetch_assoc()) {
-                    //print_r($row);
-                    //echo "<br />";
-                    echo "<tr>\n";
-                    // print data
-                    foreach($row as $key=>$value) {
-                    echo "<td>" . $value . "</td>\n";
-                    }
-                    echo "</tr>\n";
-                }
-                echo '</tr>';
-                echo "</table>";
-            }
 		?>
 		<?PHP
 			// Set up connection constants
@@ -90,35 +67,50 @@
 			if(array_key_exists('hidSubmitFlag', $_POST))
 			{
  				// Look at the hidden submitFlag variable to determine what to do
- 				$submitFlag = $_POST['hidSubmitFlag'];
-				$sql = "INSERT INTO openjobs (jobTitle, jobDescription, companyID) "
-                        . " VALUES ('" . $_POST['job'] . "', '" 
-						. $_POST['description'] . "', '"
-                        . $_POST['employeeList'] . "')";
-				$result = $conn->query($sql);
+ 				//$submitFlag = $_POST['hidSubmitFlag'];
+				$job = $_POST['job'];
+				$description = $_POST['description'];
+				$companyID = $_POST['employeeList'];
+				
+				//Call procedure
+				$sql = "CALL insertJob(?, ?, ?)";
+				
+				//Query procedure using prepared statement
+				if($stmt = $conn->prepare($sql))
+				{
+					$stmt->bind_param("ssi", $job, $description, $companyID) ;
+					if($stmt->errno) {
+						echo "stmt prepare( ) had error."; 
+					}
+					// Execute the query
+					$stmt->execute();
+					if($stmt->errno) {
+						echo "Could not execute prepared statement";
+					}
+					else
+					{
+						echo '<div class="shadow container-sm position-relative">';
+						echo '<div class="position-absolute bottom-0 end-0">';
+						echo '<h1 style="color: red">' .$job. ' added</h1>';
+						echo '</div>';
+						echo '</div>';
+					}
+					// Free results
+					$stmt->free_result( );
+					// Close the statement
+					$stmt->close( );
+				}
+
+
 
 			}
 
 		?>
-		<h1 class="dispay-5" style="color: #fff">View Data</h1>
-		<?PHP
-			//Display company tables
-            $departmentHead = array("Company", "Job Title", "Job Description");
-            $departmentTitle = "Job Openings";
-            $sql = "SELECT c.companyName, j.jobTitle, j.jobDescription 
-            FROM company c
-            JOIN openjobs j
-            ON c.companyID = j.companyID
-            ";
-            $result = $conn->query($sql);
-            //Display tables of data
-            displayTable($departmentHead, $departmentTitle, $result);	
-		?>
-		<div class="shadow container-sm mt-3 mb-3 py-2 bg-white rounded">
+		<div class="shadow container-sm mt-5 mb-5 py-2 bg-white rounded">
 			<h4 class="display-7" style="text-align: center">Select Company to Add Position</h4>
 			
 			
-				<form 
+				<form
 					method="POST"
  					name="postForm"
 				>
@@ -159,6 +151,8 @@
 				</form>
 			
 		</div>
+
+
 		<script
 			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
 			integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
