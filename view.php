@@ -42,7 +42,7 @@
 				echo '</tr>';
                 foreach($table as $row)
                 {
-                    echo '<tr>';
+                    echo '<tr style="color: #fff">';
                     foreach($row as $col)
                     {
                         echo '<td>'.$col.'</td>';

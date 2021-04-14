@@ -1,8 +1,8 @@
 <!-- 
-    File: dbfCreate.php (Web page to create new database and tables. Populate table data and display it)
+    File: updateDbfCreate.php (Web page to create new database and tables. Populate table data and display it. Uses only prepared statements, except for adding procedure to DB)
     Server Side Development / Project: Term Project
     Maxwell Burdette / burdettm@csp.edu
-    04/11/2021
+    04/14/2021
  -->
 <!DOCTYPE html>
 <html>
@@ -12,16 +12,24 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+			crossorigin="anonymous"
+		/>
+        <link
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300&display=swap"
+			rel="stylesheet"
+		/>
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-    <nav>
-			<h1>JobFinder</h1>
+        <nav>
+            <h1 class="home py-4" style="font-size: 1.8em"><a href="./index.html">JobFinder</a></h1>
 		</nav>
-        <h1>Here is the sample data you created</h1>
-        <h3>
-			<a href="index.html">Back</a>
-		</h3>
+        <h1 style="color: #fff">Here is the sample data you created</h1>
+      
         <?PHP
             // Set up connection constants
             define("SERVER_NAME","localhost");
@@ -268,7 +276,7 @@
 
             function displayTable($tableHead, $title, $table)
             {
-                echo "<h2>".$title."</h2>";
+                echo '<h2 style="color: #fff">'.$title.'</h2>';
 		        echo '<table>';
 		        echo '<tr>';
                 foreach($tableHead as $value)
@@ -279,7 +287,7 @@
                
                 foreach($table as $row)
                 {
-                    echo '<tr>';
+                    echo '<tr style="color: #fff">';
                     foreach($row as $col)
                     {
                         echo '<td>'.$col.'</td>';

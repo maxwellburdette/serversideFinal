@@ -2,7 +2,7 @@
     File: form.php (Shows open jobs and lets you add more)
     Server Side Development / Project: Term Project
     Maxwell Burdette / burdettm@csp.edu
-    04/11/2021
+    04/14/2021
  -->
 <!DOCTYPE html>
 <html>
@@ -32,6 +32,7 @@
 
 			function input($value, $id)
 			{
+
 				echo '<div class="form-floating m-1">';
 					echo '<input
 						type="text"
@@ -39,8 +40,9 @@
 						class="form-control"
 						placeholder="placeholder"
 						id = "'.$id.'"
+						required
 					/>';
-					echo '<label for="floatingInput">'.$value.'</label>';
+					echo '<label for="floatingInput" class="form-label">'.$value.'</label>';
 				echo '</div>';
 			}
 		?>
@@ -62,8 +64,6 @@
 			$conn->select_db(DATABASE_NAME);
 			//Start tracking session variables
 			session_start( );
-			//Action for form 
-			$self = $_SERVER['PHP_SELF'];
 			if(array_key_exists('hidSubmitFlag', $_POST))
 			{
  				// Look at the hidden submitFlag variable to determine what to do
@@ -89,11 +89,9 @@
 					}
 					else
 					{
-						echo '<div class="shadow container-sm position-relative">';
-						echo '<div class="position-absolute bottom-0 end-0">';
-						echo '<h1 style="color: red">' .$job. ' added</h1>';
-						echo '</div>';
-						echo '</div>';
+
+						$_SESSION['jobTitle'] = urlencode(serialize($job));
+						
 					}
 					// Free results
 					$stmt->free_result( );
@@ -101,6 +99,19 @@
 					$stmt->close( );
 				}
 
+
+				if(array_key_exists('added',$_SESSION))
+				{
+					$jobAdded = urldecode(($_SESSION['jobTitle']));
+					$decodedJob = unserialize($jobAdded);
+
+					echo '<div class="shadow container-sm position-relative">';
+					echo '<div class="position-absolute bottom-0 end-0">';
+					echo '<h1 style="color: red">' .$decodedJob. ' added</h1>';
+					echo '</div>';
+					echo '</div>';
+					
+				}
 
 
 			}
@@ -118,17 +129,38 @@
 						class="form-select m-auto"
 						aria-label="Default select example"
 						style="width: 25%"
+						required
 					
 					>
  						<?PHP
 					 		$sql = "SELECT companyName, companyID FROM company";
-					 		$result = $conn->query($sql);
+					 		// $result = $conn->query($sql);
 							echo '<option value=""></option>';
-					 		while($row = $result->fetch_assoc()) {
-								$name = $row['companyName'];
-								$id = $row['companyID'];
-								echo "<option value='" . $id . "'>" . $name . "</option>";
-                    		}
+					 		
+							//Prepared Statement for combobox data
+							if($stmt = $conn->prepare($sql))
+							{
+								if($stmt->errno) {
+									echo "stmt prepare( ) had error."; 
+								}
+								// Execute the query
+								$stmt->execute();
+								if($stmt->errno) {
+									echo "Could not execute prepared statement";
+								}
+								$stmt->store_result( );
+
+								$stmt->bind_result($name, $id);
+
+								while($stmt->fetch())
+								{
+									echo "<option value='" . $id . "'>" . $name . "</option>";
+								}
+								// Free results
+								$stmt->free_result( );
+								// Close the statement
+								$stmt->close( );
+							}
  						?>
  					</select>	
 					<?PHP
@@ -141,7 +173,7 @@
 						echo '</div>';
 						echo '<div class="form-floating m-auto" style="width: 50%">';
   						echo '<textarea class="form-control" placeholder="Leave a comment here" name="description" id="description"
-						  style="height: 200px; resize: none"></textarea>';
+						  style="height: 200px; resize: none" required></textarea>';
   						echo'<label for="floatingTextarea">Job Description</label>';
 						echo '</div>';
 					?>
@@ -151,6 +183,10 @@
 				</form>
 			
 		</div>
+
+		<h4 class="display-7 m-3" style="text-align: center; color: #fff">Procedure used when form is submitted</h4>	
+		<img src="./graphics/PROCEDURE.png" class="rounded img-thumbnail mx-auto mb-5 d-block" alt="">
+		
 
 
 		<script
