@@ -22,14 +22,14 @@
 			href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300&display=swap"
 			rel="stylesheet"
 		/>
-		<link rel="stylesheet" href="readMe.css" />
+		<link rel="stylesheet" href="style.css" />
 	</head>
 	<body>
 		<nav>
-			<h1 class="home py-4" style="font-size: 1.8em"><a href="./index.html">JobFinder (Click here to return home)</a></h1>
-			<h1 class="py-4" style="font-size: 1.8em">General Page Layout</h1>
+			<h1 class="home py-4" style="font-size: 1.8em; width:30%;"><a href="./index.html">JobFinder (Click here to return home)</a></h1>
+			<h1 class="py-4" style="font-size: 1.8em; width:30%">General Page Layout</h1>
 		</nav>
-		<div class="container mt-5">
+		<div class="readMeText mt-5">
 			<p>
 				My application is going to be similar to a job search tool. It is going
 				to allow a business to have a list of jobs available and allow
@@ -43,8 +43,14 @@
 				important for that tool to be very powerful and simplistic.
 			</p>
 		</div>
-		<h2 class="mt-5">
-			<a href="http://burdetteserver.byethost16.com/term/">Hosted Site</a>
-		</h2>
+
+		<div
+			class="buttonContainer position-fixed bottom-0 start-50 translate-middle-x mt-5"
+		>
+			<a class="readMeButton active" href="./readMe.html">Read Me</a>
+			<a class="readMeButton" href="./form.php">Add Job</a>
+			<a class="readMeButton" href="./view.php">View Jobs</a>
+			<a class="readMeButton" href="./dbfCreate.php">Create Sample Data</a>
+		</div>
 	</body>
 </html>

@@ -186,6 +186,21 @@
 
 		<h4 class="display-7 m-3" style="text-align: center; color: #fff">Procedure used when form is submitted</h4>	
 		<img src="./graphics/PROCEDURE.png" class="rounded img-thumbnail mx-auto mb-5 d-block" alt="">
+		<br />
+		<br />
+		<br />
+		<br />
+		
+
+
+		<div
+			class="buttonContainer position-fixed bottom-0 start-50 translate-middle-x mt-5"
+		>
+			<a class="readMeButton" href="./readMe.html">Read Me</a>
+			<a class="readMeButton active" href="./form.php">Add Job</a>
+			<a class="readMeButton" href="./view.php">View Jobs</a>
+			<a class="readMeButton" href="./dbfCreate.php">Create Sample Data</a>
+		</div>
 		
 
 

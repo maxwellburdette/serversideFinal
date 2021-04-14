@@ -5,6 +5,10 @@ body {
 	padding: 0;
 	overflow-x: hidden;
 }
+.home a {
+	text-decoration: none;
+	color: #111;
+}
 nav {
 	background-color: #5c6161;
 	display: flex;
@@ -14,12 +18,10 @@ nav {
 	border-bottom-left-radius: 10px;
 	width: 100%;
 	justify-content: space-between;
-	padding-left: 5px;
+	padding-left: 10px;
 	padding-right: 10px;
 }
-nav h1 {
-	width: 10%;
-}
+
 .readMeText {
 	width: 50%;
 	position: relative;
@@ -40,60 +42,6 @@ nav h1 {
 	text-align: left;
 }
 
-h1 {
-	text-align: center;
-	padding: 10px;
-	width: 100%;
-}
-h3 a {
-	text-decoration: none;
-	transition: 0.5s;
-	border: solid 1px #2d3d57;
-	background-color: #2cc9c2;
-	padding: 10px;
-	margin: 10px;
-	box-shadow: 0 0 0 0.3;
-}
-
-h3 a:hover {
-	letter-spacing: 1px;
-	background-color: #3a598c;
-	color: #fff;
-}
-
-h2 {
-	text-align: center;
-}
-
-.container {
-	width: 50%;
-	position: relative;
-	align-items: center;
-	justify-content: center;
-	padding: 10px;
-	margin: auto;
-	background-color: #fff;
-	border: 1px #2d3d57 solid;
-	box-shadow: inset 0px 11px 8px -10px #2d3d57,
-		inset 0px -11px 8px -10px #2d3d57;
-}
-
-.container h2 {
-	text-align: center;
-}
-
-.container .imgBox {
-	width: 80%;
-	padding: 10px;
-	margin: auto;
-	height: 50%;
-	position: relative;
-}
-
-.container .imgBox img {
-	width: 100%;
-	height: 100%;
-}
 .buttonContainer {
 	width: 70%;
 	height: 100px;
@@ -106,8 +54,6 @@ h2 {
 	box-shadow: inset 0px 11px 8px -10px #2d3d57,
 		inset 0px -11px 8px -10px #2d3d57;
 }
-
-
 
 .readMeButton {
 	background-color: #2cc9c2;
@@ -131,46 +77,8 @@ h2 {
 	color: #fff;
 }
 
-table {
-	border: 4px solid #111;
-	width: 50%;
-	margin: 0 auto;
-	font-size: 1.2em;
-}
-
-td,
-th {
-	padding: 5px 20px;
-}
-
-th {
-	background: #111;
-	color: white;
-}
-
-tr {
-	text-align: center;
-	background: #3246a8;
-}
-
-/* zebra stripe the table */
-tr:nth-child(even) {
-	background: #4c4c4f; /* pale blue */
-}
-
-.home a {
-	text-decoration: none;
-	color: #111;
-}
-
-@media all and (max-width: 1200px) {
+@media (max-width: 768px) {
 	.container {
 		width: 80%;
-	}
-	.buttonContainer {
-		width: 100%;
-	}
-	.readMeButton {
-		font-size: 1.5em;
 	}
 }
