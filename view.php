@@ -1,8 +1,8 @@
 <!-- 
-    File: form.php (Shows open jobs and lets you add more)
+    File: view.php (Shows open jobs)
     Server Side Development / Project: Term Project
     Maxwell Burdette / burdettm@csp.edu
-    04/11/2021
+    04/14/2021
  -->
  <!DOCTYPE html>
 <html>
