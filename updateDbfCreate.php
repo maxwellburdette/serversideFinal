@@ -52,28 +52,111 @@
             $tableTitle = "User Table";
             $sql = "SELECT firstName, lastName, email
             FROM users";
-            $result = $conn->query($sql);
-            displayTable($productHead, $tableTitle, $result);
+            //$result = $conn->query($sql);
+            $userTable = array();
+            if($stmt = $conn->prepare($sql))
+            {
+                if($stmt->errno) {
+                    echo "stmt prepare( ) had error."; 
+                }
+          
+                // Execute the query
+                $stmt->execute();
+                if($stmt->errno) {
+                    echo "Could not execute prepared statement";
+                }
+                $stmt->store_result( );
+                // Bind result variables
+                // one variable for each field in the SELECT
+                // This is the variable that fetch( ) will use to store the result
+                $stmt->bind_result($value1, $value2, $value3);
+                // Fetch the value - returns the next row in the result set
+                    
+                    
+                while($stmt->fetch( )) {
+                    array_push($userTable, array($value1, $value2, $value3));
+                }
+
+                // Free results
+                $stmt->free_result( );
+                // Close the statement
+                $stmt->close( );
+            }
+            displayTable($productHead, $tableTitle, $userTable);
 
             //Display company tables
-            $manufacturerArray = array("Company");
-            $manufacturerTitle = "Companies";
+            $companyArray = array("Company");
+            $companyTitle = "Companies";
             $sql = "SELECT companyName
             FROM company";
-            $result = $conn->query($sql);
-            displayTable($manufacturerArray, $manufacturerTitle, $result);
-            
+            $companyTable = array();
+            if($stmt = $conn->prepare($sql))
+            {
+                if($stmt->errno) {
+                    echo "stmt prepare( ) had error."; 
+                }
+          
+                // Execute the query
+                $stmt->execute();
+                if($stmt->errno) {
+                    echo "Could not execute prepared statement";
+                }
+                $stmt->store_result( );
+                // Bind result variables
+                // one variable for each field in the SELECT
+                // This is the variable that fetch( ) will use to store the result
+                $stmt->bind_result($value1);
+                // Fetch the value - returns the next row in the result set
+                    
+                    
+                while($stmt->fetch( )) {
+                    array_push($companyTable, array($value1));
+                }
+
+                // Free results
+                $stmt->free_result( );
+                // Close the statement
+                $stmt->close( );
+            }
+            displayTable($companyArray, $companyTitle, $companyTable);
             //Display open jobs table
-            $departmentHead = array("Company", "Job Title", "Job Description");
-            $departmentTitle = "Job Openings";
+            $jobsHead = array("Company", "Job Title", "Job Description");
+            $jobsTitle = "Job Openings";
             $sql = "SELECT c.companyName, j.jobTitle, j.jobDescription 
             FROM company c
             JOIN openjobs j
             ON c.companyID = j.companyID
             ";
-            $result = $conn->query($sql);
-            //Display tables of data
-            displayTable($departmentHead, $departmentTitle, $result);
+            $jobsTable = array();
+            if($stmt = $conn->prepare($sql))
+            {
+                if($stmt->errno) {
+                    echo "stmt prepare( ) had error."; 
+                }
+          
+                // Execute the query
+                $stmt->execute();
+                if($stmt->errno) {
+                    echo "Could not execute prepared statement";
+                }
+                $stmt->store_result( );
+                // Bind result variables
+                // one variable for each field in the SELECT
+                // This is the variable that fetch( ) will use to store the result
+                $stmt->bind_result($value1, $value2, $value3);
+                // Fetch the value - returns the next row in the result set
+                    
+                    
+                while($stmt->fetch( )) {
+                    array_push($jobsTable, array($value1, $value2, $value3));
+                }
+
+                // Free results
+                $stmt->free_result( );
+                // Close the statement
+                $stmt->close( );
+            }
+            displayTable($jobsHead, $jobsTitle, $jobsTable);
 
         
 
@@ -118,6 +201,13 @@
                     companyName VARCHAR(20) NOT NULL
                 )";
                 runQuery($sql, "Creating companies...", false);
+
+                //Create Procedure Table
+                $sql = "CREATE PROCEDURE insertJob(IN job VARCHAR(50), IN description 
+                VARCHAR(255), IN id INT) NOT DETERMINISTIC NO SQL SQL SECURITY DEFINER INSERT 
+                INTO openjobs(jobTitle, jobDescription, companyID) VALUES(job, description, id)";
+                //runQuery($sql, "Creating procedure", false);
+                $conn->query($sql);
             }
 
             function populateTables()
@@ -176,7 +266,7 @@
                 }
             }
 
-            function displayTable($tableHead, $title, $result)
+            function displayTable($tableHead, $title, $table)
             {
                 echo "<h2>".$title."</h2>";
 		        echo '<table>';
@@ -185,33 +275,45 @@
                 {
                     echo "<th>".$value."</th>";
                 }
-                while($row = $result->fetch_assoc()) {
-                    //print_r($row);
-                    //echo "<br />";
-                    echo "<tr>\n";
-                    // print data
-                    foreach($row as $key=>$value) {
-                    echo "<td>" . $value . "</td>\n";
-                    }
-                    echo "</tr>\n";
-                }
                 echo '</tr>';
+               
+                foreach($table as $row)
+                {
+                    echo '<tr>';
+                    foreach($row as $col)
+                    {
+                        echo '<td>'.$col.'</td>';
+                    }
+                    echo '</tr>';
+                }
+           
                 echo "</table>";
                 echo '<br />';
             }
-
+            
+            //Run prepared statements
             function runQuery($sql, $msg, $echoSuccess) {
                 global $conn;
-         
-                // run the query
-                if ($conn->query($sql) === TRUE) {
-                   if($echoSuccess) {
-                      echo $msg . "<br />";
-                   }
-                 } 
-                 else {
-                     echo "<strong>Error when: " . $msg . "</strong> using SQL: " . $sql . "<br />" . $conn->error;
-                 }           
+
+                if($stmt = $conn->prepare($sql)) 
+                {
+                    if($stmt->errno) {
+                        echo "stmt prepare( ) had error."; 
+                    }
+                    // Execute the query
+                    $stmt->execute();
+                    if($stmt->errno) {
+                        echo "Could not execute prepared statement";
+                    }
+
+                    // Free results
+                    $stmt->free_result( );
+
+                    // Close the statement
+                    $stmt->close( );
+                }
+            
+                
              } // end of runQuery( ) 
 
         ?>
