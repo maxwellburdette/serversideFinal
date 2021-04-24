@@ -2,7 +2,7 @@
     File: updateDbfCreate.php (Web page to create new database and tables. Populate table data and display it. Uses only prepared statements, except for adding procedure to DB)
     Server Side Development / Project: Term Project
     Maxwell Burdette / burdettm@csp.edu
-    04/14/2021
+    04/23/2021
  -->
 <!DOCTYPE html>
 <html>
@@ -337,6 +337,7 @@
 			<a class="readMeButton" href="./form.php">Add Job</a>
 			<a class="readMeButton" href="./view.php">View Jobs</a>
 			<a class="readMeButton active" href="./dbfCreate.php">Create Sample Data</a>
+            <a class="readMeButton" href="./json.php">JSON data</a>
 		</div>
     </body>
 </html>

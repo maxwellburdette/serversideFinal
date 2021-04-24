@@ -1,0 +1,44 @@
+[
+    {
+        "companyId": "1",
+        "companyName": "BestBuy",
+        "jobId": "1",
+        "jobTitle": "Cashier",
+        "jobDescription": "Ring up customers and process payment"
+    },
+    {
+        "companyId": "2",
+        "companyName": "Target",
+        "jobId": "2",
+        "jobTitle": "Cashier",
+        "jobDescription": "Ring up customers and process payment"
+    },
+    {
+        "companyId": "3",
+        "companyName": "Walmart",
+        "jobId": "3",
+        "jobTitle": "Manager",
+        "jobDescription": "Manage store"
+    },
+    {
+        "companyId": "1",
+        "companyName": "BestBuy",
+        "jobId": "4",
+        "jobTitle": "Sales Associate",
+        "jobDescription": "rea"
+    },
+    {
+        "companyId": "1",
+        "companyName": "BestBuy",
+        "jobId": "5",
+        "jobTitle": "rwa",
+        "jobDescription": "rwa"
+    },
+    {
+        "companyId": "2",
+        "companyName": "Target",
+        "jobId": "6",
+        "jobTitle": "rwa",
+        "jobDescription": "rwa"
+    }
+]

@@ -2,7 +2,7 @@
     File: view.php (Shows open jobs)
     Server Side Development / Project: Term Project
     Maxwell Burdette / burdettm@csp.edu
-    04/14/2021
+    04/23/2021
  -->
  <!DOCTYPE html>
 <html>
@@ -74,7 +74,7 @@
 		?>
 		
 
-		<h1 class="dispay-5" style="color: #fff">View Data</h1>
+		<h1 class="display-5" style="color: #fff">View Data</h1>
 		<?PHP
 			//Display company tables
             $companyHead = array("Company", "Job Title", "Job Description");
@@ -125,6 +125,7 @@
 			<a class="readMeButton" href="./form.php">Add Job</a>
 			<a class="readMeButton active" href="./view.php">View Jobs</a>
 			<a class="readMeButton" href="./dbfCreate.php">Create Sample Data</a>
+			<a class="readMeButton" href="./json.php">JSON data</a>
 		</div>
 		
 		<script

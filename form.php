@@ -2,7 +2,7 @@
     File: form.php (Shows open jobs and lets you add more)
     Server Side Development / Project: Term Project
     Maxwell Burdette / burdettm@csp.edu
-    04/14/2021
+    04/23/2021
  -->
 <!DOCTYPE html>
 <html>
@@ -200,6 +200,7 @@
 			<a class="readMeButton active" href="./form.php">Add Job</a>
 			<a class="readMeButton" href="./view.php">View Jobs</a>
 			<a class="readMeButton" href="./dbfCreate.php">Create Sample Data</a>
+			<a class="readMeButton" href="./json.php">JSON data</a>
 		</div>
 		
 
