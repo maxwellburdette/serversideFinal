@@ -126,6 +126,7 @@
 			<a class="readMeButton active" href="./view.php">View Jobs</a>
 			<a class="readMeButton" href="./dbfCreate.php">Create Sample Data</a>
 			<a class="readMeButton" href="./json.php">JSON data</a>
+			<a class="readMeButton" href="./reflection.html">Reflection</a>
 		</div>
 		
 		<script

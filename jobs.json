@@ -25,20 +25,6 @@
         "companyName": "BestBuy",
         "jobId": "4",
         "jobTitle": "Sales Associate",
-        "jobDescription": "rea"
-    },
-    {
-        "companyId": "1",
-        "companyName": "BestBuy",
-        "jobId": "5",
-        "jobTitle": "rwa",
-        "jobDescription": "rwa"
-    },
-    {
-        "companyId": "2",
-        "companyName": "Target",
-        "jobId": "6",
-        "jobTitle": "rwa",
-        "jobDescription": "rwa"
+        "jobDescription": "Sell product"
     }
 ]
