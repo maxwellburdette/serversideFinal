@@ -19,6 +19,7 @@ nav {
 }
 nav h1 {
 	width: 10%;
+	color: #fff;
 }
 .readMeText {
 	width: 50%;
@@ -47,7 +48,7 @@ h1 {
 }
 h3 a {
 	text-decoration: none;
-	transition: 0.5s;
+	transition: 0.2s;
 	border: solid 1px #2d3d57;
 	background-color: #2cc9c2;
 	padding: 10px;
@@ -158,7 +159,7 @@ tr:nth-child(even) {
 
 .home a {
 	text-decoration: none;
-	color: #111;
+	color: #fff;
 }
 
 @media all and (max-width: 1200px) {

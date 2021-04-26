@@ -2,7 +2,7 @@
     File: view.php (Shows open jobs)
     Server Side Development / Project: Term Project
     Maxwell Burdette / burdettm@csp.edu
-    04/23/2021
+    04/26/2021
  -->
  <!DOCTYPE html>
 <html>
@@ -32,25 +32,34 @@
 
 			function displayTable($tableHead, $title, $table)
             {
-               
-		        echo '<table style="color: #cfcfcf">';
+				echo '<div class="container-sm">';
+		        echo '<table class="table table-hover table-dark">';
+				echo '<thead class="table table-dark">';
 		        echo '<tr>';
                 foreach($tableHead as $value)
                 {
-                    echo "<th>".$value."</th>";
+                    echo "<th style='border-left: 1px solid'>".$value."</th>";
                 }
 				echo '</tr>';
+				echo '</thead>';
                 foreach($table as $row)
                 {
-                    echo '<tr style="color: #fff">';
+                    echo '<tr class="table table-light" style="border: 1px solid #111">';
                     foreach($row as $col)
                     {
-                        echo '<td>'.$col.'</td>';
+                        echo '<td style="border-left: 1px solid #111">'.$col.'</td>';
                     }
                     echo '</tr>';
                 }
                 
                 echo "</table>";
+				echo '</div>';
+				echo '<br />';
+				echo '<br />';
+				echo '<br />';
+				echo '<br />';
+				echo '<br />';
+				echo '<br />';
             }
 		?>
 		<?PHP

@@ -2,7 +2,7 @@
     File: updateDbfCreate.php (Web page to create new database and tables. Populate table data and display it. Uses only prepared statements, except for adding procedure to DB)
     Server Side Development / Project: Term Project
     Maxwell Burdette / burdettm@csp.edu
-    04/23/2021
+    04/26/2021
  -->
 <!DOCTYPE html>
 <html>
@@ -277,20 +277,23 @@
             function displayTable($tableHead, $title, $table)
             {
                 echo '<h2 style="color: #fff">'.$title.'</h2>';
-		        echo '<table>';
+                echo '<div class="container-sm">';
+		        echo '<table class="table table-hover table-dark">';
+                echo '<thead class="table table-dark">';
 		        echo '<tr>';
                 foreach($tableHead as $value)
                 {
-                    echo "<th>".$value."</th>";
+                    echo "<th style='border-left: 1px solid #fff'>".$value."</th>";
                 }
                 echo '</tr>';
-               
+                echo '</thead>';
+
                 foreach($table as $row)
                 {
-                    echo '<tr style="color: #fff">';
+                    echo '<tr class="table table-light">';
                     foreach($row as $col)
                     {
-                        echo '<td>'.$col.'</td>';
+                        echo '<td style="border-left: 1px solid #111">'.$col.'</td>';
                     }
                     echo '</tr>';
                 }
